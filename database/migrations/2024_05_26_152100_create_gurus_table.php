@@ -11,12 +11,12 @@ class CreateGurusTable extends Migration
         Schema::create('gurus', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('nip')->unique();
+            $table->string('nip');
             $table->string('foto');
             $table->string('tempat');
             $table->date('tgl');
             $table->string('alamat');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('telepon')->nullable();
             $table->timestamps();
         });

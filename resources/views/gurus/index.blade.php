@@ -78,62 +78,72 @@
             </style>
 
             <div class="row" id="guru-list">
-                <div class="card">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th class="cell">Nama</th>
-                                <th>NIP</th>
-                                <th>Alamat</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($gurus as $guru)
-                                <tr>
-                                    <td>{{ $guru->nama }}</td>
-                                    <td>{{ $guru->nip }}</td>
-                                    <td>{{ $guru->alamat }}</td>
-                                    <td>{{ $guru->email }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="cell">Nama</th>
+                                            <th>NIP</th>
+                                            <th>Alamat</th>
+                                            <th>Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($gurus as $guru)
+                                            <tr>
+                                                <td>{{ $guru->nama }}</td>
+                                                <td>{{ $guru->nip }}</td>
+                                                <td>{{ $guru->alamat }}</td>
+                                                <td>{{ $guru->email }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
-            <!-- @foreach ($gurus as $guru)
+    <!-- @foreach ($gurus as $guru)
     <div class="col-xl-4 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <h4 class="card-title">{{ $guru->nama }}</h4>
-                                            <h6 class="card-subtitle">{{ $guru->nip }}</h6>
-                                        </div>
-                                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img src="{{ asset('guru') }}/{{ $guru->foto }}"
-                                                        class="card-img-top img-fluid" alt="Foto {{ $guru->nama }}"
-                                                        data-bs-toggle="modal" data-bs-target="#imageModal"
-                                                        onclick="showModal('{{ asset('guru') }}/{{ $guru->foto }}')">
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    <div class="card">
+                                                        <div class="card-content">
+                                                            <div class="card-body">
+                                                                <h4 class="card-title">{{ $guru->nama }}</h4>
+                                                                <h6 class="card-subtitle">{{ $guru->nip }}</h6>
+                                                            </div>
+                                                            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                                                                <div class="carousel-inner">
+                                                                    <div class="carousel-item active">
+                                                                        <img src="{{ asset('guru') }}/{{ $guru->foto }}"
+                                                                            class="card-img-top img-fluid" alt="Foto {{ $guru->nama }}"
+                                                                            data-bs-toggle="modal" data-bs-target="#imageModal"
+                                                                            onclick="showModal('{{ asset('guru') }}/{{ $guru->foto }}')">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                Lahir di Kota {{ $guru->tempat }} pada {{ $guru->tgl }} yang beralamat di
-                                                {{ $guru->alamat }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">{{ $guru->email }}</li>
-                                        <li class="list-group-item">{{ $guru->telepon }}</li>
-                                    </ul>
-                                </div>
-                            </div>
+                                                            <div class="card-body">
+                                                                <p class="card-text">
+                                                                    Lahir di Kota {{ $guru->tempat }} pada {{ $guru->tgl }} yang beralamat di
+                                                                    {{ $guru->alamat }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item">{{ $guru->email }}</li>
+                                                            <li class="list-group-item">{{ $guru->telepon }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
     @endforeach -->
 
 

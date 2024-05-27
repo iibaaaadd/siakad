@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\KelasController;
+
+Route::resource('kelas', KelasController::class);
 
 Route::get('gurus', [GuruController::class, 'index'])->name('gurus.index');
 Route::post('gurus', [GuruController::class, 'store'])->name('gurus.store');
