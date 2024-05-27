@@ -9,7 +9,7 @@
             <div class="col-12 col-lg-9">
                 <div class="row">
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
+                        <a href="#" class="card">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -23,10 +23,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
+                        <a href="#" class="card">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -40,10 +40,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
+                        <a href="#" class="card">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -57,10 +57,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
+                        <a href="#" class="card">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
@@ -188,8 +188,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another
-                                                        tutorial for
+                                                    <p class=" mb-0">Wow amazing design! Can you make another tutorial for
                                                         this design?</p>
                                                 </td>
                                             </tr>
@@ -201,6 +200,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-12 col-lg-3">
                 <div class="card">
                     <div class="card-body py-4 px-4">

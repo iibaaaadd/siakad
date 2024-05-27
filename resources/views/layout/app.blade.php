@@ -64,7 +64,6 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
                         <li class="sidebar-item active ">
                             <a href="{{ route('dashboard') }}" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
@@ -88,7 +87,7 @@
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="#" class='submenu-link'>
+                                    <a href="{{ route('gurus.index') }}" class='submenu-link'>
                                         <i class="bi bi-people-fill"></i>
                                         <span>Data Guru</span>
                                     </a>
@@ -227,6 +226,7 @@
                 </div>
             </div>
         </div>
+        
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
