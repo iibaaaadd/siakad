@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GuruController extends Controller
 {
@@ -29,12 +30,10 @@ class GuruController extends Controller
         return view('gurus.index', compact('gurus'));
     }
 
-
-
     public function store(Request $request)
     {
         // Validasi data
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|unique:gurus',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -44,6 +43,12 @@ class GuruController extends Controller
             'email' => 'required|string|email|max:255|unique:gurus',
             'telepon' => 'nullable|string|max:15',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $validatedData = $request->all();
 
         // Penanganan unggahan foto
         if ($request->hasFile('foto')) {
@@ -56,40 +61,46 @@ class GuruController extends Controller
         // Buat entri Guru baru
         Guru::create($validatedData);
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('gurus.index')->with('success', 'Guru berhasil ditambahkan.');
+        // Return success response
+        return response()->json(['success' => 'Guru berhasil ditambahkan.'], 200);
     }
 
-    public function update(Request $request, Guru $guru)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required',
-            'nip' => 'required|unique:gurus,nip,' . $guru->id,
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'tempat' => 'required',
+        $guru = Guru::findOrFail($id);
+        // Validasi data
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'nip' => 'required|string' . $guru->id,
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'tempat' => 'required|string|max:255',
             'tgl' => 'required|date',
-            'alamat' => 'required',
-            'email' => 'required|email|unique:gurus,email,' . $guru->id,
-            'telepon' => 'nullable',
+            'alamat' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255' . $guru->id,
+            'telepon' => 'nullable|string|max:15',
         ]);
 
+        $validatedData = $request->all();
+
+        // Penanganan unggahan foto
         if ($request->hasFile('foto')) {
-            $fotoName = time() . '.' . $request->foto->extension();
-            $request->foto->move(public_path('/guru'), $fotoName);
-            $guru->foto = $fotoName;
+            $image = $request->file('foto');
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('guru'), $imageName);
+            $validatedData['foto'] = $imageName;
         }
 
-        $guru->update([
-            'nama' => $request->nama,
-            'nip' => $request->nip,
-            'tempat' => $request->tempat,
-            'tgl' => $request->tgl,
-            'alamat' => $request->alamat,
-            'email' => $request->email,
-            'telepon' => $request->telepon,
-        ]);
+        // Update entri Guru
+        $guru->update($validatedData);
 
+        // Redirect to a specific route after successful update
         return redirect()->route('gurus.index')->with('success', 'Guru berhasil diperbarui.');
+    }
+
+
+    public function edit(Guru $guru)
+    {
+        return view('gurus.edit', compact('guru'));
     }
 
     public function destroy(Guru $guru)

@@ -135,6 +135,7 @@
                 </div>
             </div>
         </section>
+        
         @foreach ($kelas as $index => $kela)
             <div class="modal fade text-left" id="editKelasModal{{ $kela->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="editKelasModalLabel{{ $kela->id }}" aria-hidden="true">
