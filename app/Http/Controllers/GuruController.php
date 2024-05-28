@@ -75,7 +75,7 @@ class GuruController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tempat' => 'required|string|max:255',
             'tgl' => 'required|date',
-            'alamat' => 'required|string|max:255',
+            'alamat' => 'string|max:255',
             'email' => 'required|string|email|max:255' . $guru->id,
             'telepon' => 'nullable|string|max:15',
         ]);

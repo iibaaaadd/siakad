@@ -74,32 +74,41 @@
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>NIP</th>
-                                    <th>Lahir</th>
-                                    <th>Email</th>
-                                    <th>Aksi</th>
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center">NIP</th>
+                                    <th class="text-center">Lahir</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($gurus as $guru)
-                                    <tr>
+                                    <tr class="text-center">
                                         <td>{{ $guru->nama }}</td>
                                         <td>{{ $guru->nip }}</td>
                                         <td>{{ $guru->tempat }}, {{ $guru->tgl }}</td>
                                         <td>{{ $guru->email }}</td>
                                         <td>
-                                            <form id="delete-form-{{ $guru->id }}"
-                                                action="{{ route('gurus.destroy', $guru->id) }}" method="POST">
-                                                <a href="{{ route('guru.edit', $guru->id) }}"
-                                                    class="btn btn-sm btn-warning">Edit</a>
-                                                Edit
+                                            <div style="display: flex; text-align: center; flex-wrap: wrap; align-content: center; justify-content: center;">
+                                                <button type="button" class="btn btn-info me-1" data-bs-toggle="modal"
+                                                    data-bs-target="#showGuruModal{{ $guru->id }}">
+                                                    <i class="bi bi-eye"></i></button>
                                                 </button>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-danger"
-                                                    onclick="confirmDelete({{ $guru->id }})">Delete</button>
-                                            </form>
+                                                <!-- Edit Button -->
+                                                <button class="btn btn-warning me-1" data-bs-toggle="modal"
+                                                    data-bs-target="#editGuruModal{{ $guru->id }}"><i
+                                                        class="bi bi-pencil"></i></button>
+
+                                                <!-- Delete Form and Button -->
+                                                <form id="delete-form-{{ $guru->id }}"
+                                                    action="{{ route('gurus.destroy', $guru->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="confirmDelete({{ $guru->id }})"><i
+                                                            class="bi bi-trash"></i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -115,8 +124,8 @@
             aria-labelledby="tambahGuruModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="tambahGuruModalLabel">Guru Baru</h4>
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title white" id="tambahGuruModalLabel">Guru Baru</h4>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                         </button>
@@ -226,69 +235,71 @@
             });
         </script>
 
+        <!--Modal Edit-->
         @foreach ($gurus as $guru)
-            <!-- Edit Modal -->
             <div class="modal fade text-left" id="editGuruModal{{ $guru->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="editGuruModalLabel{{ $guru->id }}" aria-hidden="true">
+                aria-labelledby="editGuruModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="editGuruModalLabel{{ $guru->id }}">Edit Guru</h4>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <div class="modal-header bg-primary">
+                            <h3 class="modal-title white" id="tambahGuruModalLabel">Edit Guru</h3> <button type="button"
+                                class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form id="editGuruForm{{ $guru->id }}" enctype="multipart/form-data">
+                        <form action="{{ route('guru.update', $guru->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="nama{{ $guru->id }}" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" id="nama{{ $guru->id }}"
-                                            name="nama" value="{{ $guru->nama }}" required>
+                                        <label for="nama" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="nama" name="nama"
+                                            value="{{ $guru->nama }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="nip{{ $guru->id }}" class="form-label">NIP</label>
-                                        <input type="text" class="form-control" id="nip{{ $guru->id }}"
-                                            name="nip" value="{{ $guru->nip }}" required>
+                                        <label for="nip" class="form-label">NIP</label>
+                                        <input type="text" class="form-control" id="nip" name="nip"
+                                            value="{{ $guru->nip }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="tempat{{ $guru->id }}" class="form-label">Tempat Lahir</label>
-                                        <input type="text" class="form-control" id="tempat{{ $guru->id }}"
-                                            name="tempat" value="{{ $guru->tempat }}" required>
+                                        <label for="tempat" class="form-label">Tempat Lahir</label>
+                                        <input type="text" class="form-control" id="tempat" name="tempat"
+                                            value="{{ $guru->tempat }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="tgl{{ $guru->id }}" class="form-label">Tanggal Lahir</label>
-                                        <input type="date" class="form-control" id="tgl{{ $guru->id }}"
-                                            name="tgl" value="{{ $guru->tgl }}" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <label for="foto{{ $guru->id }}" class="form-label">Foto</label>
-                                        <input type="file" class="form-control" id="foto{{ $guru->id }}"
-                                            name="foto">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="telepon{{ $guru->id }}" class="form-label">Telepon</label>
-                                        <input type="tel" class="form-control" id="telepon{{ $guru->id }}"
-                                            name="telepon" value="{{ $guru->telepon }}">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="email{{ $guru->id }}" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email{{ $guru->id }}"
-                                            name="email" value="{{ $guru->email }}" required>
+                                        <label for="tgl" class="form-label">Tanggal Lahir</label>
+                                        <input type="date" class="form-control" id="tgl" name="tgl"
+                                            value="{{ $guru->tgl }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <label for="alamat{{ $guru->id }}" class="form-label">Alamat</label>
-                                        <textarea class="form-control" id="alamat{{ $guru->id }}" name="alamat" required>{{ $guru->alamat }}</textarea>
+                                        <label for="foto" class="form-label">Foto (Optional)</label>
+                                        <input type="file" class="form-control" id="foto" name="foto">
+                                        <p class="text-muted">Leave empty to keep existing photo.</p>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="telepon" class="form-label">Telepon</label>
+                                        <input type="tel" class="form-control" id="telepon" name="telepon"
+                                            value="{{ $guru->telepon }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="{{ $guru->email }}">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="alamat" class="form-label">Alamat</label>
+                                        <input type="text" class="form-control" id="alamat" name="alamat"
+                                            value="{{ $guru->alamat }}"></input>
                                     </div>
                                 </div>
                             </div>
@@ -297,7 +308,7 @@
                                     <i class="bx bx-x d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Close</span>
                                 </button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>
@@ -305,56 +316,80 @@
             </div>
         @endforeach
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            document.querySelectorAll('[id^="editGuruForm"]').forEach(form => {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    let guruId = this.id.replace('editGuruForm', '');
-                    let formData = new FormData(this);
-
-                    fetch(`{{ url('/gurus') }}/${guruId}`, {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                                'X-HTTP-Method-Override': 'PUT'
-                            },
-                            body: formData
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.errors) {
-                                let errors = data.errors;
-                                if (errors.email) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Email Error',
-                                        text: errors.email[0]
-                                    });
-                                }
-                                if (errors.nip) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'NIP Error',
-                                        text: errors.nip[0]
-                                    });
-                                }
-                            } else {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Success',
-                                    text: 'Guru berhasil diperbarui'
-                                }).then(() => {
-                                    location.reload();
-                                });
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
-                });
-            });
-        </script>
 
         <!--Modal View-->
+        @foreach ($gurus as $guru)
+            <div class="modal fade text-left" id="showGuruModal{{ $guru->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="showGuruModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h3 class="modal-title white" id="showGuruModalLabel">Detail</h3> <button type="button"
+                                class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <style>
+                                /* Style to make the image responsive */
+                                .carousel-item img {
+                                    max-width: 100%;
+                                    height: auto;
+                                }
+                            </style>
 
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div id="carouselExampleSlidesOnly" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="{{ asset('guru') }}/{{ $guru->foto }}"
+                                                        class="d-block w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ $guru->nama }}</h4>
+                                            <h6 class="card-subtitle">{{ $guru->nip }}</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Lahir di Kota {{ $guru->tempat }} pada {{ $guru->tgl }} yang beralamat
+                                                di {{ $guru->alamat }}
+                                            </p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">{{ $guru->email }}</li>
+                                            <li class="list-group-item">{{ $guru->telepon }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div><!--//app-content-->
+    <script>
+        function confirmDelete(guruId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + guruId).submit();
+                }
+            })
+        }
+    </script>
 @endsection

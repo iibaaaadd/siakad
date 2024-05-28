@@ -238,6 +238,13 @@
                 </a>
             </header>
 
+            <style>
+                div.table-responsive>div.dataTables_wrapper>div.row 
+                {
+                    margin: 10px !important;
+                }
+            </style>
+
             @yield('content')
 
             <footer>
