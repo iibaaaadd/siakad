@@ -10,23 +10,7 @@ class GuruController extends Controller
 {
     public function index(Request $request)
     {
-        $search = $request->input('searchdocs');
-        $gurus = Guru::query();
-
-        if ($search) {
-            $gurus->where(function ($query) use ($search) {
-                $query->where('nama', 'LIKE', "%{$search}%")
-                    ->orWhere('nip', 'LIKE', "%{$search}%")
-                    ->orWhere('tempat', 'LIKE', "%{$search}%")
-                    ->orWhere('tgl', 'LIKE', "%{$search}%")
-                    ->orWhere('alamat', 'LIKE', "%{$search}%")
-                    ->orWhere('email', 'LIKE', "%{$search}%")
-                    ->orWhere('telepon', 'LIKE', "%{$search}%");
-            });
-        }
-
-        $gurus = $gurus->get();
-
+        $gurus = Guru::all();
         return view('gurus.index', compact('gurus'));
     }
 
@@ -107,19 +91,5 @@ class GuruController extends Controller
     {
         $guru->delete();
         return redirect()->route('gurus.index')->with('success', 'Guru berhasil dihapus.');
-    }
-
-    public function search(Request $request)
-    {
-        // Ambil nilai pencarian dari permintaan
-        $searchQuery = $request->input('search');
-
-        // Lakukan pencarian berdasarkan nama atau NIP guru
-        $gurus = Guru::where('nama', 'like', "%$searchQuery%")
-            ->orWhere('nip', 'like', "%$searchQuery%")
-            ->get();
-
-        // Kembalikan tampilan parsial dengan data guru yang difilter
-        return view('partials.guru_list')->with('gurus', $gurus);
     }
 }

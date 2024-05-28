@@ -66,8 +66,8 @@
             aria-labelledby="tambahKelasModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="tambahKelasModalLabel">Kelas Baru</h4>
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title white" id="tambahKelasModalLabel">Kelas Baru</h4>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                         </button>
@@ -104,27 +104,28 @@
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th width="280px">Action</th>
+                                    <th class="text-center" width="100px" >No</th>
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center" width="280px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($kelas as $index => $kela)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $kela->nama }}</td>
-                                        <td>
+                                        <td class="text-center">{{ $index + 1 }}</td>
+                                        <td class="text-center">{{ $kela->nama }}</td>
+                                        <td class="text-center">
                                             <form id="delete-form-{{ $kela->id }}"
                                                 action="{{ route('kelas.destroy', $kela->id) }}" method="POST">
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
                                                     data-bs-target="#editKelasModal{{ $kela->id }}">
-                                                    Edit
+                                                    <i class="bi bi-pencil"></i></button>
                                                 </button>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-danger"
-                                                    onclick="confirmDelete({{ $kela->id }})">Delete</button>
+                                                    onclick="confirmDelete({{ $kela->id }})"><i
+                                                    class="bi bi-trash"></i></button></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -135,14 +136,14 @@
                 </div>
             </div>
         </section>
-        
+
         @foreach ($kelas as $index => $kela)
             <div class="modal fade text-left" id="editKelasModal{{ $kela->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="editKelasModalLabel{{ $kela->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="editKelasModalLabel{{ $kela->id }}">Edit
+                    <div class="modal-content ">
+                        <div class="modal-header bg-primary">
+                            <h4 class="modal-title white" id="editKelasModalLabel{{ $kela->id }}">Edit
                                 Kelas</h4>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>

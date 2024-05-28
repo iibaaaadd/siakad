@@ -28,24 +28,21 @@
                 <div class="page-utilities">
                     <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                         <div class="col-auto">
-                            <!-- 3. Di dalam form pencarian pada tampilan index -->
-                            <form class="docs-search-form row gx-1 align-items-center" id="search-form"
-                                action="{{ route('gurus.index') }}" method="GET">
-
+                            <form class="docs-search-form row gx-1 align-items-center" id="search-form">
                                 <div class="col-auto">
-                                    <input type="text" id="search-docs" name="searchdocs" class="form-control"
+                                    <input type="text" id="search-docs" class="form-control"
                                         style="border: 2px solid #435ebe; border-radius: 5px;" placeholder="Search">
                                 </div>
                                 <div class="col-auto">
-                                    <button type="submit" class="btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg"
-                                            width="16" height="16" fill="currentColor" class="bi bi-search"
-                                            viewBox="0 0 16 16">
+                                    <button type="button" class="btn btn-secondary" id="search-button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                             <path
                                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zM2 6.5a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0z" />
-                                        </svg></button>
+                                        </svg>
+                                    </button>
                                 </div>
                             </form>
-
                         </div><!--//col-->
                         <div class="col-auto">
                             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahGuruModal">
@@ -89,7 +86,8 @@
                                         <td>{{ $guru->tempat }}, {{ $guru->tgl }}</td>
                                         <td>{{ $guru->email }}</td>
                                         <td>
-                                            <div style="display: flex; text-align: center; flex-wrap: wrap; align-content: center; justify-content: center;">
+                                            <div
+                                                style="display: flex; text-align: center; flex-wrap: wrap; align-content: center; justify-content: center;">
                                                 <button type="button" class="btn btn-info me-1" data-bs-toggle="modal"
                                                     data-bs-target="#showGuruModal{{ $guru->id }}">
                                                     <i class="bi bi-eye"></i></button>
@@ -391,5 +389,47 @@
                 }
             })
         }
+    </script>
+
+    <script>
+        // Fungsi untuk melakukan pencarian
+        function search() {
+            var searchText = document.getElementById('search-docs').value.toUpperCase();
+            var rows = document.getElementById('table1').getElementsByTagName('tr');
+
+            for (var i = 1; i < rows.length; i++) {
+                var row = rows[i];
+                var cells = row.getElementsByTagName('td');
+                var found = false;
+                for (var j = 0; j < cells.length; j++) {
+                    var cell = cells[j];
+                    if (cell) {
+                        var cellText = cell.textContent || cell.innerText;
+                        if (cellText.toUpperCase().indexOf(searchText) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (found) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        // Menangani peristiwa klik tombol pencarian
+        document.getElementById('search-button').addEventListener('click', function() {
+            search();
+        });
+
+        // Menangani peristiwa tekan tombol Enter pada input pencarian
+        document.getElementById('search-docs').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Menghentikan perilaku default
+                search();
+            }
+        });
     </script>
 @endsection
