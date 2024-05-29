@@ -26,7 +26,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="{{ route('dashboard') }}"><img src="./assets/compiled/svg/logo.svg" alt="Logo"
+                            <a href="{{ route('dashboard') }}"><img src="{{ asset('./assets/compiled/svg/logo.svg') }}" alt="Logo"
                                     srcset=""></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -112,7 +112,7 @@
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="#" class='submenu-link'>
+                                    <a href="{{ route('mapel.index') }}" class='submenu-link'>
                                         <i class="bi bi-book-half"></i>
                                         <span>Data Mapel</span>
                                     </a>

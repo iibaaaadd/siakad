@@ -22,7 +22,7 @@
                 </script>
             @endif
             <div class="col-auto">
-                <h1 class="app-page-title mb-0">Kelas</h1>
+                <h1 class="app-page-title mb-0">Mapel</h1>
             </div>
             <div class="col-auto">
                 <div class="page-utilities">
@@ -67,12 +67,12 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-primary">
-                        <h4 class="modal-title white" id="tambahKelasModalLabel">Kelas Baru</h4>
+                        <h4 class="modal-title white" id="tambahKelasModalLabel">Mapel Baru</h4>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                         </button>
                     </div>
-                    <form action="{{ route('kelas.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('mapel.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row mb-3">
@@ -104,28 +104,28 @@
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="100px" >No</th>
+                                    <th class="text-center" width="100px">No</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center" width="280px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($kelas as $index => $kela)
+                                @foreach ($mapel as $index => $mapels)
                                     <tr>
                                         <td class="text-center">{{ $index + 1 }}</td>
-                                        <td class="text-center">{{ $kela->nama }}</td>
-                                        <td class="text-center" >
-                                            <form id="delete-form-{{ $kela->id }}"
-                                                action="{{ route('kelas.destroy', $kela->id) }}" method="POST">
+                                        <td class="text-center">{{ $mapels->nama }}</td>
+                                        <td class="text-center">
+                                            <form id="delete-form-{{ $mapels->id }}"
+                                                action="{{ route('mapel.destroy', $mapels->id) }}" method="POST">
                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#editKelasModal{{ $kela->id }}">
+                                                    data-bs-target="#editKelasModal{{ $mapels->id }}">
                                                     <i class="bi bi-pencil"></i></button>
                                                 </button>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-danger"
-                                                    onclick="confirmDelete({{ $kela->id }})"><i
-                                                    class="bi bi-trash"></i></button></button>
+                                                    onclick="confirmDelete({{ $mapels->id }})"><i
+                                                        class="bi bi-trash"></i></button></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -137,19 +137,19 @@
             </div>
         </section>
 
-        @foreach ($kelas as $index => $kela)
-            <div class="modal fade text-left" id="editKelasModal{{ $kela->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="editKelasModalLabel{{ $kela->id }}" aria-hidden="true">
+        @foreach ($mapel as $index => $mapels)
+            <div class="modal fade text-left" id="editKelasModal{{ $mapels->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="editKelasModalLabel{{ $mapels->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                     <div class="modal-content ">
                         <div class="modal-header bg-primary">
-                            <h4 class="modal-title white" id="editKelasModalLabel{{ $kela->id }}">Edit
-                                Kelas</h4>
+                            <h4 class="modal-title white" id="editKelasModalLabel{{ $mapels->id }}">Edit
+                                Mapel</h4>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('kelas.update', $kela->id) }}" method="POST"
+                        <form action="{{ route('mapel.update', $mapels->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -158,7 +158,7 @@
                                     <div class="col-md-12">
                                         <label for="nama" class="form-label">Nama</label>
                                         <input type="text" class="form-control" id="nama" name="nama"
-                                            value="{{ $kela->nama }}" required>
+                                            value="{{ $mapels->nama }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -231,8 +231,8 @@
         // Menangani peristiwa tekan tombol Enter pada input pencarian
         document.getElementById('search-docs').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                    e.preventDefault(); // Menghentikan perilaku default
-                    search();
+                e.preventDefault(); // Menghentikan perilaku default
+                search();
             }
         });
     </script>

@@ -5,9 +5,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
-use App\Models\Siswa;
+use App\Http\Controllers\MapelController;
+use App\Models\Mapel;
 
 Route::resource('kelas', KelasController::class);
+
+Route::resource('mapel', MapelController::class);
 
 Route::get('siswas', [SiswaController::class, 'index'])->name('siswas.index');
 Route::post('siswas', [SiswaController::class, 'store'])->name('siswas.store');

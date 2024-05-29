@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
-use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,9 +10,8 @@ class GuruController extends Controller
 {
     public function index(Request $request)
     {
-        $kelas = Kelas::all();
         $gurus = Guru::all();
-        return view('gurus.index', compact('gurus','kelas'));
+        return view('gurus.index', compact('gurus'));
     }
 
     public function store(Request $request)
