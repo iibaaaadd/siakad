@@ -74,8 +74,8 @@
                                 <tr>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">NIS</th>
-                                    <th class="text-center">Lahir</th>
-                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Kelas</th>
+                                    <th class="text-center">Gender</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -84,8 +84,13 @@
                                     <tr class="text-center">
                                         <td>{{ $siswa->nama }}</td>
                                         <td>{{ $siswa->nis }}</td>
-                                        <td>{{ $siswa->tempat }}, {{ $siswa->tgl }}</td>
-                                        <td>{{ $siswa->email }}</td>
+                                        <td>{{ $siswa->kelas->nama }}</td>
+                                        <td>
+                                            <span
+                                                class="badge {{ $siswa->jenis_kelamin == 'L' ? 'bg-success' : 'bg-secondary' }}">
+                                                {{ $siswa->jenis_kelamin == 'L' ? 'Laki-Laki' : 'Perempuan' }}
+                                            </span>
+                                        </td>
                                         <td>
                                             <div
                                                 style="display: flex; text-align: center; flex-wrap: wrap; align-content: center; justify-content: center;">
@@ -172,18 +177,22 @@
                             <div class="row mb-2">
                                 <div class="col-md-6">
                                     <label for="kelas_id" class="form-label">Kelas</label>
-                                    <select name="kelas_id" class="form-control" required>
-                                        @foreach ($kelas as $kls)
-                                            <option value="{{ $kls->id }}">{{ $kls->nama }}</option>
-                                        @endforeach
-                                    </select>
+                                    <fieldset class="form-group">
+                                        <select name="kelas_id" class="form-select" id="basicSelect" required>
+                                            @foreach ($kelas as $kls)
+                                                <option value="{{ $kls->id }}">{{ $kls->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </fieldset>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                                    <select name="jenis_kelamin" class="form-control" required>
-                                        <option value="L">Laki-laki</option>
-                                        <option value="P">Perempuan</option>
-                                    </select>
+                                    <fieldset class="form-group">
+                                        <select name="jenis_kelamin" class="form-select" id="basicSelect">
+                                            <option value="L">Laki-laki</option>
+                                            <option value="P">Perempuan</option>
+                                        </select>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -286,7 +295,7 @@
                             @csrf
                             @method('PUT')
                             <div class="modal-body">
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <div class="col-md-6">
                                         <label for="nama" class="form-label">Nama</label>
                                         <input type="text" class="form-control" id="nama" name="nama"
@@ -298,7 +307,7 @@
                                             value="{{ $siswa->nis }}">
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <div class="col-md-6">
                                         <label for="tempat" class="form-label">Tempat Lahir</label>
                                         <input type="text" class="form-control" id="tempat" name="tempat"
@@ -310,14 +319,37 @@
                                             value="{{ $siswa->tgl }}">
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <div class="col">
                                         <label for="foto" class="form-label">Foto (Optional)</label>
                                         <input type="file" class="form-control" id="foto" name="foto">
                                         <p class="text-muted">Leave empty to keep existing photo.</p>
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="kelas_id" class="form-label">Kelas</label>
+                                        <fieldset class="form-group">
+                                            <select name="kelas_id" class="form-select" id="basicSelect">
+                                                <option value="" disabled selected>Pilih Kelas</option>
+                                                @foreach ($kelas as $kls)
+                                                    <option value="{{ $kls->id }}">{{ $kls->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                        <fieldset class="form-group">
+                                            <select name="jenis_kelamin" class="form-select" id="basicSelect">
+                                                <option value="" disabled selected>Pilih Gender</option>
+                                                <option value="L">Laki-laki</option>
+                                                <option value="P">Perempuan</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
                                     <div class="col-md-6">
                                         <label for="telepon" class="form-label">Telepon</label>
                                         <input type="tel" class="form-control" id="telepon" name="telepon"
@@ -329,7 +361,7 @@
                                             value="{{ $siswa->email }}">
                                     </div>
                                 </div>
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                     <div class="col">
                                         <label for="alamat" class="form-label">Alamat</label>
                                         <input type="text" class="form-control" id="alamat" name="alamat"
@@ -379,7 +411,7 @@
                                             data-bs-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src="{{ asset('guru') }}/{{ $siswa->foto }}"
+                                                    <img src="{{ asset('siswa') }}/{{ $siswa->foto }}"
                                                         class="d-block w-100"
                                                         style="
                                                         max-width: fit-content; text-align:center">

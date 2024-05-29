@@ -105,7 +105,7 @@
                                 </li>
 
                                 <li class="submenu-item  ">
-                                    <a href="#" class='submenu-link'>
+                                    <a href="{{ route('siswas.index') }}" class='submenu-link'>
                                         <i class="bi bi-people-fill"></i>
                                         <span>Data Siswa</span>
                                     </a>
