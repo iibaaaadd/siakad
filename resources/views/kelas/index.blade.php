@@ -114,7 +114,7 @@
                                     <tr>
                                         <td class="text-center">{{ $index + 1 }}</td>
                                         <td class="text-center">{{ $kela->nama }}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" >
                                             <form id="delete-form-{{ $kela->id }}"
                                                 action="{{ route('kelas.destroy', $kela->id) }}" method="POST">
                                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"

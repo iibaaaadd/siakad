@@ -22,7 +22,7 @@
                 </script>
             @endif
             <div class="col-auto">
-                <h1 class="app-page-title mb-0">Guru</h1>
+                <h1 class="app-page-title mb-0">Siswa</h1>
             </div>
             <div class="col-auto">
                 <div class="page-utilities">
@@ -61,6 +61,7 @@
                 </div><!--//table-utilities-->
             </div><!--//col-auto-->
         </div>
+
         <section class="section">
             <div class="card">
                 <div class="card-header">
@@ -72,38 +73,38 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Nama</th>
-                                    <th class="text-center">NIP</th>
+                                    <th class="text-center">NIS</th>
                                     <th class="text-center">Lahir</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($gurus as $guru)
+                                @foreach ($siswas as $siswa)
                                     <tr class="text-center">
-                                        <td>{{ $guru->nama }}</td>
-                                        <td>{{ $guru->nip }}</td>
-                                        <td>{{ $guru->tempat }}, {{ $guru->tgl }}</td>
-                                        <td>{{ $guru->email }}</td>
+                                        <td>{{ $siswa->nama }}</td>
+                                        <td>{{ $siswa->nis }}</td>
+                                        <td>{{ $siswa->tempat }}, {{ $siswa->tgl }}</td>
+                                        <td>{{ $siswa->email }}</td>
                                         <td>
                                             <div
                                                 style="display: flex; text-align: center; flex-wrap: wrap; align-content: center; justify-content: center;">
                                                 <button type="button" class="btn btn-info me-1" data-bs-toggle="modal"
-                                                    data-bs-target="#showGuruModal{{ $guru->id }}">
+                                                    data-bs-target="#showGuruModal{{ $siswa->id }}">
                                                     <i class="bi bi-eye"></i></button>
                                                 </button>
                                                 <!-- Edit Button -->
                                                 <button class="btn btn-warning me-1" data-bs-toggle="modal"
-                                                    data-bs-target="#editGuruModal{{ $guru->id }}"><i
+                                                    data-bs-target="#editGuruModal{{ $siswa->id }}"><i
                                                         class="bi bi-pencil"></i></button>
 
                                                 <!-- Delete Form and Button -->
-                                                <form id="delete-form-{{ $guru->id }}"
-                                                    action="{{ route('gurus.destroy', $guru->id) }}" method="POST">
+                                                <form id="delete-form-{{ $siswa->id }}"
+                                                    action="{{ route('siswas.destroy', $siswa->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger"
-                                                        onclick="confirmDelete({{ $guru->id }})"><i
+                                                        onclick="confirmDelete({{ $siswa->id }})"><i
                                                             class="bi bi-trash"></i></button>
                                                 </form>
                                             </div>
@@ -128,20 +129,21 @@
                             <i data-feather="x"></i>
                         </button>
                     </div>
-                    <form id="tambahGuruForm" enctype="multipart/form-data">
+                    <form id="tambahSiswaForm" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
-                            <div class="row mb-3">
+                            <!-- Form fields here -->
+                            <div class="row mb-2">
                                 <div class="col-md-6">
                                     <label for="nama" class="form-label">Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="nip" class="form-label">NIP</label>
-                                    <input type="text" class="form-control" id="nip" name="nip" required>
+                                    <label for="nis" class="form-label">NIS</label>
+                                    <input type="text" class="form-control" id="nis" name="nis" required>
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-2">
                                 <div class="col-md-6">
                                     <label for="tempat" class="form-label">Tempat Lahir</label>
                                     <input type="text" class="form-control" id="tempat" name="tempat" required>
@@ -151,13 +153,13 @@
                                     <input type="date" class="form-control" id="tgl" name="tgl" required>
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-2">
                                 <div class="col">
                                     <label for="foto" class="form-label">Foto</label>
                                     <input type="file" class="form-control" id="foto" name="foto" required>
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-2">
                                 <div class="col-md-6">
                                     <label for="telepon" class="form-label">Telepon</label>
                                     <input type="tel" class="form-control" id="telepon" name="telepon">
@@ -167,7 +169,24 @@
                                     <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <label for="kelas_id" class="form-label">Kelas</label>
+                                    <select name="kelas_id" class="form-control" required>
+                                        @foreach ($kelas as $kls)
+                                            <option value="{{ $kls->id }}">{{ $kls->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                    <select name="jenis_kelamin" class="form-control" required>
+                                        <option value="L">Laki-laki</option>
+                                        <option value="P">Perempuan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
                                 <div class="col">
                                     <label for="alamat" class="form-label">Alamat</label>
                                     <textarea class="form-control" id="alamat" name="alamat" required></textarea>
@@ -188,64 +207,81 @@
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            document.getElementById('tambahGuruForm').addEventListener('submit', function(event) {
+            document.getElementById('tambahSiswaForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 let form = event.target;
                 let formData = new FormData(form);
 
-                fetch('{{ route('gurus.store') }}', {
+                fetch('{{ route('siswas.store') }}', {
                         method: 'POST',
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
                         },
                         body: formData
                     })
-                    .then(response => response.json())
+                    .then(response => response.json().then(data => ({
+                        status: response.status,
+                        body: data
+                    })))
                     .then(data => {
-                        if (data.errors) {
-                            let errors = data.errors;
-                            if (errors.email) {
+                        if (data.status >= 200 && data.status < 300) {
+                            if (data.body.errors) {
+                                let errors = data.body.errors;
+                                for (let key in errors) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: `${key.charAt(0).toUpperCase() + key.slice(1)} Error`,
+                                        text: errors[key][0]
+                                    });
+                                }
+                            } else {
                                 Swal.fire({
-                                    icon: 'error',
-                                    title: 'Email Error',
-                                    text: errors.email[0]
-                                });
-                            }
-                            if (errors.nip) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'NIP Error',
-                                    text: errors.nip[0]
+                                    icon: 'success',
+                                    title: 'Sukses',
+                                    text: 'Siswa berhasil ditambahkan'
+                                }).then(() => {
+                                    location.reload();
                                 });
                             }
                         } else {
+                            let errorMessage = 'Terjadi kesalahan';
+                            if (data.body.errors) {
+                                errorMessage = Object.values(data.body.errors).flat().join('\n');
+                            }
                             Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: 'Guru berhasil ditambahkan'
-                            }).then(() => {
-                                location.reload();
+                                icon: 'error',
+                                title: 'Kesalahan Server',
+                                text: errorMessage
                             });
                         }
                     })
-                    .catch(error => console.error('Error:', error));
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kesalahan Pengiriman',
+                            text: 'Terjadi kesalahan saat pengiriman formulir. Silakan coba lagi.'
+                        });
+                    });
             });
         </script>
 
+
+
         <!--Modal Edit-->
-        @foreach ($gurus as $guru)
-            <div class="modal fade text-left" id="editGuruModal{{ $guru->id }}" tabindex="-1" role="dialog"
+        @foreach ($siswas as $siswa)
+            <div class="modal fade text-left" id="editGuruModal{{ $siswa->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="editGuruModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
-                            <h3 class="modal-title white" id="tambahGuruModalLabel">Edit Guru</h3> <button type="button"
-                                class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <h3 class="modal-title white" id="tambahGuruModalLabel">Edit Siswa</h3> <button
+                                type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <i data-feather="x"></i>
                             </button>
                         </div>
-                        <form action="{{ route('guru.update', $guru->id) }}" method="POST"
+                        <form action="{{ route('siswa.update', $siswa->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -254,24 +290,24 @@
                                     <div class="col-md-6">
                                         <label for="nama" class="form-label">Nama</label>
                                         <input type="text" class="form-control" id="nama" name="nama"
-                                            value="{{ $guru->nama }}">
+                                            value="{{ $siswa->nama }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="nip" class="form-label">NIP</label>
                                         <input type="text" class="form-control" id="nip" name="nip"
-                                            value="{{ $guru->nip }}">
+                                            value="{{ $siswa->nis }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="tempat" class="form-label">Tempat Lahir</label>
                                         <input type="text" class="form-control" id="tempat" name="tempat"
-                                            value="{{ $guru->tempat }}">
+                                            value="{{ $siswa->tempat }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="tgl" class="form-label">Tanggal Lahir</label>
                                         <input type="date" class="form-control" id="tgl" name="tgl"
-                                            value="{{ $guru->tgl }}">
+                                            value="{{ $siswa->tgl }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -285,19 +321,19 @@
                                     <div class="col-md-6">
                                         <label for="telepon" class="form-label">Telepon</label>
                                         <input type="tel" class="form-control" id="telepon" name="telepon"
-                                            value="{{ $guru->telepon }}">
+                                            value="{{ $siswa->telepon }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                            value="{{ $guru->email }}">
+                                            value="{{ $siswa->email }}">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="alamat" class="form-label">Alamat</label>
                                         <input type="text" class="form-control" id="alamat" name="alamat"
-                                            value="{{ $guru->alamat }}"></input>
+                                            value="{{ $siswa->alamat }}"></input>
                                     </div>
                                 </div>
                             </div>
@@ -316,8 +352,8 @@
 
 
         <!--Modal View-->
-        @foreach ($gurus as $guru)
-            <div class="modal fade text-left" id="showGuruModal{{ $guru->id }}" tabindex="-1" role="dialog"
+        @foreach ($siswas as $siswa)
+            <div class="modal fade text-left" id="showGuruModal{{ $siswa->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="showGuruModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                     <div class="modal-content">
@@ -343,7 +379,7 @@
                                             data-bs-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src="{{ asset('guru') }}/{{ $guru->foto }}"
+                                                    <img src="{{ asset('guru') }}/{{ $siswa->foto }}"
                                                         class="d-block w-100"
                                                         style="
                                                         max-width: fit-content; text-align:center">
@@ -353,18 +389,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card-body">
-                                            <h4 class="card-title">{{ $guru->nama }}</h4>
-                                            <h6 class="card-subtitle">{{ $guru->nip }}</h6>
+                                            <h4 class="card-title">{{ $siswa->nama }}</h4>
+                                            <h6 class="card-subtitle">{{ $siswa->nis }}</h6>
                                         </div>
                                         <div class="card-body">
                                             <p class="card-text">
-                                                Lahir di Kota {{ $guru->tempat }} pada {{ $guru->tgl }} yang beralamat
-                                                di {{ $guru->alamat }}
+                                                Lahir di Kota {{ $siswa->tempat }} pada {{ $siswa->tgl }} yang beralamat
+                                                di {{ $siswa->alamat }}
                                             </p>
                                         </div>
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">{{ $guru->email }}</li>
-                                            <li class="list-group-item">{{ $guru->telepon }}</li>
+                                            <li class="list-group-item">{{ $siswa->email }}</li>
+                                            <li class="list-group-item">{{ $siswa->telepon }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -376,7 +412,7 @@
         @endforeach
     </div><!--//app-content-->
     <script>
-        function confirmDelete(guruId) {
+        function confirmDelete(siswaId) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -387,7 +423,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + guruId).submit();
+                    document.getElementById('delete-form-' + siswaId).submit();
                 }
             })
         }

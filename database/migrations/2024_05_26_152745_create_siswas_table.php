@@ -15,9 +15,11 @@ class CreateSiswasTable extends Migration
             $table->string('foto');
             $table->string('tempat');
             $table->date('tgl');
+            $table->string('alamat');
             $table->unsignedBigInteger('kelas_id');
             $table->string('email')->unique();
             $table->string('telepon')->nullable();
+            $table->enum('jenis_kelamin', ['L', 'P']); // 'L' for Laki-laki, 'P' for Perempuan
             $table->timestamps();
 
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');

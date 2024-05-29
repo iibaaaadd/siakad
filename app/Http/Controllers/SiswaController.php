@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Guru;
+use App\Models\Kelas;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class GuruController extends Controller
+class SiswaController extends Controller
 {
     public function index(Request $request)
     {
         $kelas = Kelas::all();
-        $gurus = Guru::all();
-        return view('gurus.index', compact('gurus','kelas'));
+        $siswas = Siswa::all();
+        return view('siswas.index', compact('siswas', 'kelas'));
     }
 
     public function store(Request $request)
     {
-        // Validasi data
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
-            'nip' => 'required|string|unique:gurus',
+            'nis' => 'required|string|unique:siswas',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tempat' => 'required|string|max:255',
             'tgl' => 'required|date',
             'alamat' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:gurus',
+            'kelas_id' => 'required|exists:kelas,id',
+            'email' => 'required|string|email|max:255|unique:siswas',
             'telepon' => 'nullable|string|max:15',
+            'jenis_kelamin' => 'required|in:L,P',
         ]);
 
         if ($validator->fails()) {
@@ -36,56 +37,69 @@ class GuruController extends Controller
 
         $validatedData = $request->all();
 
-        // Penanganan unggahan foto
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('guru'), $imageName);
+            $image->move(public_path('siswa'), $imageName);
             $validatedData['foto'] = $imageName;
         }
 
-        // Buat entri Guru baru
-        Guru::create($validatedData);
+        Siswa::create($validatedData);
 
-        // Return success response
-        return response()->json(['success' => 'Guru berhasil ditambahkan.'], 200);
+        return response()->json(['success' => 'Siswa berhasil ditambahkan'], 200);
     }
+
 
     public function update(Request $request, $id)
     {
-        $guru = Guru::findOrFail($id);
-        // Validasi data
+        $siswa = Siswa::findOrFail($id);
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
-            'nip' => 'required|string' . $guru->id,
+            'nip' => 'required|string' . $siswa->id,
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tempat' => 'required|string|max:255',
             'tgl' => 'required|date',
             'alamat' => 'string|max:255',
-            'email' => 'required|string|email|max:255' . $guru->id,
+            'kelas_id' => 'required|exists:kelas,id',
+            'email' => 'required|string|email|max:255' . $siswa->id,
             'telepon' => 'nullable|string|max:15',
+            'jenis_kelamin' => 'required|in:L,P',
         ]);
 
         $validatedData = $request->all();
 
-        // Penanganan unggahan foto
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('guru'), $imageName);
+            $image->move(public_path('siswa'), $imageName);
             $validatedData['foto'] = $imageName;
         }
 
-        // Update entri Guru
-        $guru->update($validatedData);
+        $siswa->update($validatedData);
 
-        // Redirect to a specific route after successful update
-        return redirect()->route('gurus.index')->with('success', 'Guru berhasil diperbarui.');
+        return redirect()->route('siswas.index')->with('success', 'Siswa berhasil diperbarui.');
     }
 
-    public function destroy(Guru $guru)
+    public function create()
     {
-        $guru->delete();
-        return redirect()->route('gurus.index')->with('success', 'Guru berhasil dihapus.');
+        $kelas = Kelas::all();
+        return view('siswas.create', compact('kelas'));
+    }
+
+    public function show(Siswa $siswa)
+    {
+        return view('siswas.show', compact('siswa'));
+    }
+
+    public function edit(Siswa $siswa)
+    {
+        $kelas = Kelas::all();
+        return view('siswas.edit', compact('siswa', 'kelas'));
+    }
+
+    public function destroy(Siswa $siswa)
+    {
+        $siswa->delete();
+        return redirect()->route('siswas.index')->with('success', 'Siswa berhasil dihapus.');
     }
 }
