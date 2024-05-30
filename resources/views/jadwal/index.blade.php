@@ -220,7 +220,8 @@
                                 <div class="row mb-2">
                                     <label for="mapel_id" class="form-label">Mapel</label>
                                     <fieldset class="form-group">
-                                        <select name="mapel_id" class="form-select" id="mapel_id" value="{{ $jadwal->mapel_id }}">
+                                        <select name="mapel_id" class="form-select" id="mapel_id"
+                                            value="{{ $jadwal->mapel_id }}">
                                             @foreach ($mapels as $mapel)
                                                 <option value="{{ $mapel->id }}">{{ $mapel->nama }}</option>
                                             @endforeach
@@ -228,7 +229,8 @@
                                     </fieldset>
                                     <label for="guru_id" class="form-label">Guru</label>
                                     <fieldset class="form-group">
-                                        <select name="guru_id" class="form-select" id="guru_id" value="{{ $jadwal->guru_id }}">
+                                        <select name="guru_id" class="form-select" id="guru_id"
+                                            value="{{ $jadwal->guru_id }}">
                                             @foreach ($gurus as $guru)
                                                 <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                                             @endforeach
@@ -239,10 +241,9 @@
                                     <div class="col-md-6">
                                         <label for="kelas_id" class="form-label">Kelas</label>
                                         <fieldset class="form-group">
-                                            <select name="kelas_id" class="form-select" id="kelas_id" value="{{ $jadwal->kelas_id }}">
-                                                @foreach ($kelas as $kelas)
-                                                    <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
-                                                @endforeach
+                                            <select name="kelas_id" class="form-select" id="kelas_id"
+                                                value="{{ $jadwal->kelas_id }}">
+                                                
                                             </select>
                                         </fieldset>
                                     </div>
@@ -265,12 +266,12 @@
                                     <div class="col-md-6">
                                         <label for="jam_mulai" class="form-label">Jam Mulai</label>
                                         <input type="time" class="form-control" id="jam_mulai" name="jam_mulai"
-                                        value="{{ $jadwal->jam_mulai }}">
+                                            value="{{ $jadwal->jam_mulai }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="jam_selesai" class="form-label">Jam Selesai</label>
                                         <input type="time" class="form-control" id="jam_selesai" name="jam_selesai"
-                                        value="{{ $jadwal->jam_selesai }}">
+                                            value="{{ $jadwal->jam_selesai }}">
                                     </div>
                                 </div>
                             </div>

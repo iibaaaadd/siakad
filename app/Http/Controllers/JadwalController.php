@@ -10,7 +10,7 @@ use App\Models\Mapel;
 
 class JadwalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $jadwals = Jadwal::all();
         $gurus = Guru::all();
@@ -58,7 +58,7 @@ class JadwalController extends Controller
         // Validasi input
         $request->validate([
             'guru_id' => 'required|exists:gurus,id',
-            'kelas_id' => 'required|exists:kelas,id',
+            'kelas_id' => 'exists:kelas,id',
             'mapel_id' => 'required|exists:mapels,id',
             'hari' => 'required',
             'jam_mulai' => 'required',
