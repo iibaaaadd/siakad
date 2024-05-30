@@ -21,4 +21,9 @@ class Guru extends Model
         'email',
         'telepon',
     ];
+
+    public function Jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

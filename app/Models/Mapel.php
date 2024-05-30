@@ -12,4 +12,9 @@ class Mapel extends Model
     protected $table = 'mapels';
 
     protected $fillable = ['nama'];
+
+    public function Jadwal()
+    {
+        return $this->hasMany(Jadwal::class);
+    }
 }

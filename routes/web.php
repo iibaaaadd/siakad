@@ -6,11 +6,20 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\JadwalController;
 use App\Models\Mapel;
 
 Route::resource('kelas', KelasController::class);
 
 Route::resource('mapel', MapelController::class);
+
+Route::resource('jadwals', JadwalController::class);
+
+Route::get('jadwals', [JadwalController::class, 'index'])->name('jadwals.index');
+Route::post('jadwals', [JadwalController::class, 'store'])->name('jadwals.store');
+Route::post('jadwals/{jadwals}', [JadwalController::class, 'update'])->name('jadwals.update');
+Route::delete('jadwals/{jadwals}', [JadwalController::class, 'destroy'])->name('jadwals.destroy');
+
 
 Route::get('siswas', [SiswaController::class, 'index'])->name('siswas.index');
 Route::post('siswas', [SiswaController::class, 'store'])->name('siswas.store');
@@ -32,4 +41,3 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-

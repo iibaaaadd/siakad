@@ -110,7 +110,7 @@
                                         <span>Data Siswa</span>
                                     </a>
                                 </li>
-
+                                
                                 <li class="submenu-item  ">
                                     <a href="{{ route('mapel.index') }}" class='submenu-link'>
                                         <i class="bi bi-book-half"></i>
