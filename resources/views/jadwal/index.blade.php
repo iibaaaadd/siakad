@@ -22,7 +22,7 @@
                 </script>
             @endif
             <div class="col-auto">
-                <h1 class="app-page-title mb-0">Kelas</h1>
+                <h1 class="app-page-title mb-0">Jadwal</h1>
             </div>
             <div class="col-auto">
                 <div class="page-utilities">
@@ -99,8 +99,8 @@
                                     <label for="kelas_id" class="form-label">Kelas</label>
                                     <fieldset class="form-group">
                                         <select name="kelas_id" class="form-select" id="kelas_id" required>
-                                            @foreach ($kelas as $kelas)
-                                                <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                                            @foreach ($kelas as $k)
+                                                <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                             @endforeach
                                         </select>
                                     </fieldset>
@@ -243,7 +243,9 @@
                                         <fieldset class="form-group">
                                             <select name="kelas_id" class="form-select" id="kelas_id"
                                                 value="{{ $jadwal->kelas_id }}">
-                                                
+                                                @foreach ($kelas as $k)
+                                                <option value="1">{{ $k->nama }}</option>
+                                            @endforeach
                                             </select>
                                         </fieldset>
                                     </div>

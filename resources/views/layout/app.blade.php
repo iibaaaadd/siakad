@@ -24,12 +24,18 @@
         <style>
             #main {
                 margin-left: 10px;
-                
+
+                min-height: 100vh;
+            }
+
+            html[data-bs-theme=dark] #main {
+                margin-left: 10px;
+                padding: 2rem;
                 min-height: 100vh;
             }
         </style>
         <header>
-            <nav class="navbar navbar-expand navbar-light navbar-top" >
+            <nav class="navbar navbar-expand navbar-light navbar-top">
                 <div class="container-fluid">
                     <a href="#" class="burger-btn d-block">
                         <i class="bi bi-justify fs-3"></i>
