@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">Jumlah Siswa</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $siswas }}</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $siswa }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -62,14 +62,62 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Visitors Profile</h4>
+                                <h3 text-muted font-semibold>Siswa</h3>
                             </div>
                             <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
+                                <div id="chart-siswa"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
+
+                    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var maleCount = {{ $siswas->where('jenis_kelamin', 'L')->count() }};
+                            var femaleCount = {{ $siswas->where('jenis_kelamin', 'P')->count() }};
+
+                            var options = {
+                                chart: {
+                                    type: 'donut',
+                                    width: '450px',
+                                    height: '450px'
+                                },
+                                series: [maleCount, femaleCount],
+                                labels: ['Laki-Laki', 'Perempuan'],
+                                colors: ['#435EBE', '#55C6E8'],
+                                plotOptions: {
+                                    pie: {
+                                        donut: {
+                                            size: '40%' // Adjust this percentage to make the inner circle smaller or larger
+                                        }
+                                    }
+                                },
+                                dataLabels: {
+                                    enabled: true,
+                                    formatter: function(val, opts) {
+                                        return val.toFixed(1) + "%";
+                                    }
+                                },
+                                legend: {
+                                    position: 'right'
+                                },
+                                tooltip: {
+                                    enabled: true,
+                                    theme: 'dark',
+                                    y: {
+                                        formatter: function(val) {
+                                            return val;
+                                        }
+                                    }
+                                }
+                            };
+
+                            var chart = new ApexCharts(document.querySelector("#chart-siswa"), options);
+                            chart.render();
+                        });
+                    </script>
+
+                    <div class="col-md-6">
                         <a href="#" class="card">
                             <div class="card-body px-4 py-4-5">
                                 <div class="row">
@@ -85,6 +133,76 @@
                                 </div>
                             </div>
                         </a>
+                        <a href="#" class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon red mb-2">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Saved Post</h6>
+                                        <h6 class="font-extrabold mb-0">112</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon red mb-2">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Saved Post</h6>
+                                        <h6 class="font-extrabold mb-0">112</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Jadwal</h2>
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Hari</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                        <th>Guru</th>
+                                        <th>Kelas</th>
+                                        <th>Mata Pelajaran</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
+                                        @foreach ($jadwals->where('hari', $hari) as $jadwal)
+                                            <tr>
+                                                <td>{{ $jadwal->hari }}</td>
+                                                <td>{{ $jadwal->jam_mulai }}</td>
+                                                <td>{{ $jadwal->jam_selesai }}</td>
+                                                <td>{{ $gurus->find($jadwal->guru_id)->nama }}</td>
+                                                <td>{{ $kelas->find($jadwal->kelas_id)->nama }}</td>
+                                                <td>{{ $mapels->find($jadwal->mapel_id)->nama }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

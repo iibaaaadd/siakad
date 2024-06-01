@@ -22,7 +22,7 @@ class KelasController extends Controller
         Kelas::create($request->all());
         return redirect()->route('kelas.index')->with('success', 'Kelas created successfully.');
     }
-
+    
     public function update(Request $request, Kelas $kela)
     {
         $request->validate([
