@@ -26,6 +26,7 @@ class GuruController extends Controller
             'alamat' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:gurus',
             'telepon' => 'nullable|string|max:15',
+            'jenis_kelamin' => 'required|in:L,P',
         ]);
 
         if ($validator->fails()) {
@@ -62,6 +63,7 @@ class GuruController extends Controller
             'alamat' => 'string|max:255',
             'email' => 'required|string|email|max:255' . $guru->id,
             'telepon' => 'nullable|string|max:15',
+            'jenis_kelamin' => 'required|in:L,P',
         ]);
 
         $validatedData = $request->all();

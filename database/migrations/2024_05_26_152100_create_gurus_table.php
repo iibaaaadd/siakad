@@ -15,6 +15,7 @@ class CreateGurusTable extends Migration
             $table->string('foto');
             $table->string('tempat');
             $table->date('tgl');
+            $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('alamat');
             $table->string('email');
             $table->string('telepon')->nullable();

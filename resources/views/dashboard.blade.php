@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                                         <h6 class="text-muted font-semibold">Jumlah Guru</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $gurus }}</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $guru }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 text-muted font-semibold>Siswa</h3>
+                                <h3 text-muted font-semibold>Guru</h3>
                             </div>
                             <div class="card-body">
                                 <div id="chart-siswa"></div>
@@ -73,8 +73,8 @@
                     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
-                            var maleCount = {{ $siswas->where('jenis_kelamin', 'L')->count() }};
-                            var femaleCount = {{ $siswas->where('jenis_kelamin', 'P')->count() }};
+                            var maleCount = {{ $gurus->where('jenis_kelamin', 'L')->count() }};
+                            var femaleCount = {{ $gurus->where('jenis_kelamin', 'P')->count() }};
 
                             var options = {
                                 chart: {
@@ -118,91 +118,114 @@
                     </script>
 
                     <div class="col-md-6">
-                        <a href="#" class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon red mb-2">
-                                            <i class="iconly-boldBookmark"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Saved Post</h6>
-                                        <h6 class="font-extrabold mb-0">112</h6>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 text-muted font-semibold>Siswa</h3>
                             </div>
-                        </a>
-                        <a href="#" class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon red mb-2">
-                                            <i class="iconly-boldBookmark"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Saved Post</h6>
-                                        <h6 class="font-extrabold mb-0">112</h6>
-                                    </div>
-                                </div>
+                            <div class="card-body">
+                                <div id="chart-guru"></div>
                             </div>
-                        </a>
-                        <a href="#" class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon red mb-2">
-                                            <i class="iconly-boldBookmark"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Saved Post</h6>
-                                        <h6 class="font-extrabold mb-0">112</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Jadwal</h2>
-
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Hari</th>
-                                        <th>Jam Mulai</th>
-                                        <th>Jam Selesai</th>
-                                        <th>Guru</th>
-                                        <th>Kelas</th>
-                                        <th>Mata Pelajaran</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'] as $hari)
-                                        @foreach ($jadwals->where('hari', $hari) as $jadwal)
-                                            <tr>
-                                                <td>{{ $jadwal->hari }}</td>
-                                                <td>{{ $jadwal->jam_mulai }}</td>
-                                                <td>{{ $jadwal->jam_selesai }}</td>
-                                                <td>{{ $gurus->find($jadwal->guru_id)->nama }}</td>
-                                                <td>{{ $kelas->find($jadwal->kelas_id)->nama }}</td>
-                                                <td>{{ $mapels->find($jadwal->mapel_id)->nama }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @endforeach
-                                </tbody>
-                            </table>
                         </div>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Variabel dari PHP
+                            var count10IPA = <?php echo $siswas->where('kelas.nama', '10 IPA')->count(); ?>;
+                            var count10IPS = <?php echo $siswas->where('kelas.nama', '10 IPS')->count(); ?>;
+                            var count11IPA = <?php echo $siswas->where('kelas.nama', '11 IPA')->count(); ?>;
+                            var count11IPS = <?php echo $siswas->where('kelas.nama', '11 IPS')->count(); ?>;
+                            var count12IPA = <?php echo $siswas->where('kelas.nama', '12 IPA')->count(); ?>;
+                            var count12IPS = <?php echo $siswas->where('kelas.nama', '12 IPS')->count(); ?>;
+
+                            var options = {
+                                chart: {
+                                    type: 'donut',
+                                    width: '424px',
+                                    height: '424px'
+                                },
+                                series: [count10IPA, count10IPS, count11IPA, count11IPS, count12IPA, count12IPS],
+                                labels: ['10 IPA', '10 IPS', '11 IPA', '11 IPS', '12 IPA', '12 IPS'],
+                                colors: ['#435EBE', '#55C6E8', '#FF4560', '#FEB019', '#00E396', '#775DD0'],
+                                plotOptions: {
+                                    pie: {
+                                        donut: {
+                                            size: '40%' // Sesuaikan persentase ini untuk membuat lingkaran dalam lebih kecil atau lebih besar
+                                        }
+                                    }
+                                },
+                                dataLabels: {
+                                    enabled: true,
+                                    formatter: function(val, opts) {
+                                        return val.toFixed(1) + "%";
+                                    }
+                                },
+                                legend: {
+                                    position: 'right'
+                                },
+                                tooltip: {
+                                    enabled: true,
+                                    theme: 'dark',
+                                    y: {
+                                        formatter: function(val) {
+                                            return val;
+                                        }
+                                    }
+                                }
+                            };
+
+                            var chart = new ApexCharts(document.querySelector("#chart-guru"), options);
+                            chart.render();
+                        });
+                    </script>
+                    
+                    <div class="col-md-6">
+                        <a href="#" class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon red mb-2">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Saved Post</h6>
+                                        <h6 class="font-extrabold mb-0">112</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon red mb-2">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Saved Post</h6>
+                                        <h6 class="font-extrabold mb-0">112</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                        <div class="stats-icon red mb-2">
+                                            <i class="iconly-boldBookmark"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                        <h6 class="text-muted font-semibold">Saved Post</h6>
+                                        <h6 class="font-extrabold mb-0">112</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="row">

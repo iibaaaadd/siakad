@@ -18,9 +18,10 @@ class DashboardController extends Controller
         $jadwals = Jadwal::all();
         $siswas = Siswa::all();
         $siswa = Siswa::count();
-        $gurus = Guru::count();
+        $gurus = Guru::all();
+        $guru = Guru::count();
         $kelas = Kelas::count();
         $mapels = Mapel::count();
-        return view('dashboard', compact('siswas', 'jadwals', 'siswa', 'gurus', 'kelas', 'mapels'));
+        return view('dashboard', compact('siswas', 'jadwals', 'siswa','guru', 'gurus', 'kelas', 'mapels'));
     }
 }

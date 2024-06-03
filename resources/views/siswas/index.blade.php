@@ -276,8 +276,6 @@
             });
         </script>
 
-
-
         <!--Modal Edit-->
         @foreach ($siswas as $siswa)
             <div class="modal fade text-left" id="editGuruModal{{ $siswa->id }}" tabindex="-1" role="dialog"
@@ -381,7 +379,6 @@
                 </div>
             </div>
         @endforeach
-
 
         <!--Modal View-->
         @foreach ($siswas as $siswa)

@@ -20,6 +20,7 @@ class Guru extends Model
         'alamat',
         'email',
         'telepon',
+        'jenis_kelamin',
     ];
 
     public function Jadwal()
