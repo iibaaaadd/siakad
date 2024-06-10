@@ -193,57 +193,60 @@
                     <div class="sidebar-menu">
                         <ul class="menu">
                             <li class="sidebar-title">Menu</li>
-                            <li class="sidebar-item active ">
+                            <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <a href="{{ route('dashboard') }}" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Dashboard</span>
                                 </a>
                             </li>
 
-                            <li class="sidebar-item  has-sub">
+
+                            <li
+                                class="sidebar-item has-sub {{ request()->routeIs('jadwals.index', 'gurus.index', 'kelas.index', 'siswas.index', 'mapel.index') ? 'active' : '' }}">
                                 <a href="#" class='sidebar-link'>
                                     <i class="bi bi-pencil-square"></i>
                                     <span>Master Data</span>
                                 </a>
 
-                                <ul class="submenu ">
+                                <ul class="submenu">
 
-                                    <li class="submenu-item  ">
+                                    <li
+                                        class="submenu-item {{ request()->routeIs('jadwals.index') ? 'active' : '' }}">
                                         <a href="{{ route('jadwals.index') }}" class='submenu-link'>
                                             <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                             <span>Data Jadwal</span>
                                         </a>
                                     </li>
 
-                                    <li class="submenu-item  ">
+                                    <li class="submenu-item {{ request()->routeIs('gurus.index') ? 'active' : '' }}">
                                         <a href="{{ route('gurus.index') }}" class='submenu-link'>
                                             <i class="bi bi-people-fill"></i>
                                             <span>Data Guru</span>
                                         </a>
                                     </li>
 
-                                    <li class="submenu-item  ">
+                                    <li class="submenu-item {{ request()->routeIs('kelas.index') ? 'active' : '' }}">
                                         <a href="{{ route('kelas.index') }}" class='submenu-link'>
                                             <i class="bi-house-door-fill"></i>
                                             <span>Data Kelas</span>
                                         </a>
                                     </li>
 
-                                    <li class="submenu-item  ">
+                                    <li class="submenu-item {{ request()->routeIs('siswas.index') ? 'active' : '' }}">
                                         <a href="{{ route('siswas.index') }}" class='submenu-link'>
                                             <i class="bi bi-people-fill"></i>
                                             <span>Data Siswa</span>
                                         </a>
                                     </li>
 
-                                    <li class="submenu-item  ">
+                                    <li class="submenu-item {{ request()->routeIs('mapel.index') ? 'active' : '' }}">
                                         <a href="{{ route('mapel.index') }}" class='submenu-link'>
                                             <i class="bi bi-book-half"></i>
                                             <span>Data Mapel</span>
                                         </a>
                                     </li>
 
-                                    <li class="submenu-item  ">
+                                    <li class="submenu-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                                         <a href="#" class='submenu-link'>
                                             <i class="bi bi-person-plus-fill"></i>
                                             <span>Data User</span>
@@ -420,6 +423,7 @@
     <!-- Need: Apexcharts -->
     <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/static/js/pages/dashboard.js') }}"></script>
+
 
 </body>
 

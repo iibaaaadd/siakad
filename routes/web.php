@@ -38,7 +38,7 @@ Route::resource('guru', GuruController::class);
 
 
 Route::get('/', function () {
-    return view('/dashboard');
+    return redirect('/dashboard');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
